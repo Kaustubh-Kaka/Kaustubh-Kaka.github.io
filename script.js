@@ -1,8 +1,14 @@
 const searchBar = document.getElementById("searchBar");
 
+const outputbox = document.getElementById("list");
+
+var newElement =
+  '<div style="height: 50px; width: 50px;background-color=#ff0;"></div>';
+
 searchBar.addEventListener("keyup", function(e) {
   e.preventDefault();
-  console.log(e);
+  if (e.code == "Enter") console.log(searchBar.value);
+  outputbox.innerHTML = newElement;
 });
 
 data = [
