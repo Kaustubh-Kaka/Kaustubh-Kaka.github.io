@@ -3,22 +3,32 @@
     padding: 0;
 }
 
-#topbar {
+.topbar {
     height: 75px;
     width: 100pc;
     background-color: rgb(236, 236, 239);
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-column-gap: 10px;
 }
 
+.menu-item{
+    /* grid-column-start: 1/span(2); */
+    justify-self: center;
+    align-self: center;
+}
+
+/* 
 #logo {
-    align-self: flex-start;
-    margin: 3px;
+    position: relative;
+    float: left;
+    
+    margin-left: 30px;
     padding: 5px;
 }
 
 #topnav {
     align-self: flex-end;
-
     margin-left: auto;
     margin-right: 300px;
     padding: 5px;
@@ -27,4 +37,4 @@
 .cleanedlink {
     text-decoration: none;
     color: #000;
-}
+} */
