@@ -58,8 +58,8 @@
 }
 
 .skills{
-        justify-self: center;
-        align-items: center;
+       display: grid;
+       place-content: center;
         width: 128px;
         height: 128px;
         background-color: rgb(242,242,242);
