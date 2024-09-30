@@ -27,7 +27,7 @@
 #section1{
     display: grid;
     grid-template-columns: 3fr 1fr 2fr 3fr;
-    grid-template-rows: 1fr 3fr;
+    grid-template-rows: 1fr 5fr;
     grid-template-areas: 'empty1 image content empty2'
                          'empty1 image contenttext empty2';
 }
@@ -35,7 +35,8 @@
 #section2{
     display: grid;
         grid-template-columns: 5fr 2fr 2fr 2fr 2fr 5fr;
-        grid-template-rows: 1fr;
+        grid-row-gap: 10px;
+        grid-template-rows: 1fr 1fr;
         grid-template-areas: 'title title title title title title'
                              'empty1 skill1 skill2 skill3 skill4 empty2';
 }
@@ -44,4 +45,12 @@
     border: 0px;
     background: rgba(0, 0, 0, 0);
     font-family: inherit;
+}
+
+.skills{
+    justify-self: center;
+        width: 128px;
+        height: 128px;
+        background-color: rgb(242,242,242);
+        border-radius: 64px;
 }
