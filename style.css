@@ -1,41 +1,31 @@
-:root{
-    --purple: rgb(109,86,152);
-    --light-purple: rgb();
-}
-
-* {
+*{
     margin: 0;
     padding: 0;
 }
 
-.topbar {
+#topbar{
+    background-color: rgb(236,236,239);
+    width: 100%;
     height: 75px;
-    width: 100pc;
-    background-color: rgb(236, 236, 239);
     display: grid;
-    grid-template-columns: repeat(10,1fr);
-    grid-column-gap: 10px;
+    grid-template-columns: 3fr 4fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 'logo empty projects snippets';
 }
 
-.menu-item-2 {
-    font-size: 24px;
-    grid-column-start: 8;
-    grid-column-end: 8;
-    align-self: center;
+#bottombar {
+    background-color: rgb(109, 86, 152);
+    width: 100%;
+    height: 175px;
+    display: grid;
+    grid-template-columns: 5fr 1fr 1fr 1fr 5fr;
+    grid-template-rows: 2fr;
+    grid-template-areas: 'empty1 logo logo logo empty2'
+                         'empty1 github linkedin mail empty2';
 }
 
-.menu-item-3 {
-    font-size: 24px;
-    grid-column-start: 9;
-    grid-column-end: 9;
-    align-self: center;
-}
-
-.logo{
-    color : var(--purple);
-    font-size: 36px;
-    grid-column-start:1;
-    grid-column-end:3;
-    justify-self: center;
-    align-self: center;
+.buttonclean{
+    border: 0px;
+    background: rgba(0, 0, 0, 0);
+    font-family: inherit;
 }
