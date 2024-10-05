@@ -77,3 +77,21 @@
     letter-spacing: 2px;
     font-size: 24px;
 }
+.about {
+    width: 600px;
+    margin: auto;
+    padding: 15px;
+}
+
+@media all and (max-width: 1020px) {
+   .about{
+    width: 90%;
+    padding: 15px;
+   }
+}
+@media all and (max-width: 680px) {
+    .about{
+        width: 100%;
+        padding: 0px;
+    }
+}
