@@ -89,9 +89,7 @@
     padding: 15px;
    }
 }
-@media all and (max-width: 680px) {
-    .about{
-        width: 100%;
-        padding: 0px;
-    }
+
+#mycanvas {
+    background: #000;
 }

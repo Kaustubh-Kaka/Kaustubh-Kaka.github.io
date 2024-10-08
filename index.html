@@ -12,7 +12,8 @@
   </head>
 
   <body style=" font-family: Roboto Mono, system-ui">
-    <div id="topbar">
+    <template>
+      <div id="topbar">
       <button class="buttonclean titlefont" style="color: rgb(109,86,152); grid-area: logo;">
         &ltkaustubh.kaka/&gt
       </button>
@@ -77,5 +78,15 @@
           src="./images/gmail.svg"
       /></a>
     </div>
+    </template>
+      <canvas id="mycanvas"></canvas>
+    <input
+      id="eccentricity-input"
+      placeholder="Enter new eccentricity value"
+      style=" position:absolute; top:90px; left: 10px; width: 300px; height: 30px;font-size: 20px; border-radius: 5px; "
+    />
+
+    <script src="./animation.js"></script>
+   
   </body>
 </html>
