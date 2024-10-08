@@ -16,6 +16,8 @@ function roundN(x, n) {
 
 function drawReference() {
   ctx.strokeStyle = "#fff";
+  ctx.lineWidth = 1;
+
   ctx.beginPath();
   ctx.moveTo(0, origin[1]);
   ctx.lineTo(2 * origin[0], origin[1]);
@@ -51,6 +53,8 @@ class circularBody {
   draw() {
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.color;
+    ctx.lineWidth = 1;
+
     let r =
       (this.a * (1 - this.epsilon ** 2)) /
       (1 - this.epsilon * Math.cos(this.theta));
@@ -104,6 +108,7 @@ class orbit {
 
   draw() {
     ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
     for (let i = 0; i < this.pointList.length; i++) {
       ctx.beginPath(this.pointList[i][0], this.pointList[i][1]);
       ctx.moveTo(
@@ -125,7 +130,7 @@ let curOrbit = new orbit(350, eccentricity);
 
 let star = new circularBody(0, 0, 0, 0, 0, 30, "#ff0");
 
-console.log(curOrbit);
+console.log(ctx);
 
 document
   .querySelector("#eccentricity-input")
