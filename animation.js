@@ -93,9 +93,11 @@ class circularBody {
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 2;
 
-    let r =
+    let r = Math.max(
       (this.a * (1 - this.epsilon ** 2)) /
-      (1 - this.epsilon * Math.cos(this.theta));
+        (1 - this.epsilon * Math.cos(this.theta)),
+      this.a / 2
+    );
     ctx.beginPath();
     ctx.moveTo(origin[0], origin[1]);
     ctx.lineTo(
