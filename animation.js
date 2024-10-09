@@ -4,6 +4,7 @@ ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let disabled = false;
 let prop = 0.001;
 let eccentricity = 0.1;
 let origin = [canvas.width / 2, canvas.height / 2];
@@ -70,6 +71,40 @@ class circularBody {
     ctx.fill();
   }
 
+  drawImage() {
+    ctx.strokeStyle = this.color;
+    ctx.fillStyle = "rgba(0,0,0,0.5)";
+    ctx.lineWidth = 2;
+
+    let r = this.a / 2;
+    ctx.beginPath();
+    ctx.arc(
+      origin[0] + r * Math.cos(this.theta),
+      origin[1] - r * Math.sin(this.theta),
+      this.radius,
+      0,
+      2 * Math.PI
+    );
+    ctx.stroke();
+    ctx.fill();
+  }
+
+  drawRay() {
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+
+    let r =
+      (this.a * (1 - this.epsilon ** 2)) /
+      (1 - this.epsilon * Math.cos(this.theta));
+    ctx.beginPath();
+    ctx.moveTo(origin[0], origin[1]);
+    ctx.lineTo(
+      origin[0] + r * Math.cos(this.theta),
+      origin[1] - r * Math.sin(this.theta)
+    );
+    ctx.stroke();
+  }
+
   update() {
     let wrongConstantOmega = (2 * Math.PI) / this.T;
     this.theta += prop * this.T * wrongConstantOmega;
@@ -127,6 +162,7 @@ class orbit {
 let p1 = new circularBody(350, eccentricity, 0, 0, 0, 10, "#f00");
 let p2 = new circularBody(350, eccentricity, 0, 0, 0, 10, "#0f0");
 let curOrbit = new orbit(350, eccentricity);
+let imageOrbit = new orbit(350 / 2, 0);
 
 let star = new circularBody(0, 0, 0, 0, 0, 30, "#ff0");
 
@@ -151,11 +187,25 @@ document
     }
   });
 
+document
+  .querySelector("#guide-toggle-check")
+  .addEventListener("click", function(e) {
+    disabled = !this.checked;
+  });
+
 function animate() {
   //ctx.fillStyle = "rgba(0,0,0,0.1)";
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  curOrbit.draw();
   drawReference();
+  curOrbit.draw();
+  if (!disabled) {
+    imageOrbit.draw();
+    p1.drawRay();
+    p2.drawRay();
+    p1.drawImage();
+    p2.drawImage();
+  }
+
   star.draw();
   p1.draw();
   p1.update();
