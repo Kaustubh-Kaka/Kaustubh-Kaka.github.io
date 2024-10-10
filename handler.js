@@ -233,7 +233,7 @@ function renderMainContent() {
     animate();
   } else {
     document.querySelector("#content-area").innerHTML = `
-      <h1>Hello I am Kasutubh kaka</h1>
+      <h1>Hello I am Kaustubh kaka</h1>
     `;
   }
 }
