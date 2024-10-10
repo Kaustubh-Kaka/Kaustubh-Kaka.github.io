@@ -1,3 +1,15 @@
+document.querySelector("body").insertAdjacentHTML(
+  "afterbegin",
+  `<canvas id="mycanvas"></canvas>
+    <input
+      id="eccentricity-input"
+      placeholder="Enter new eccentricity value"
+      style=" position:absolute; top:90px; left: 10px; width: 300px; height: 30px;font-size: 20px; border-radius: 5px; "
+    />
+    <div style="position: absolute; top: 125px; left: 10px; color: #fff; font-family: Arial, Helvetica, sans-serif; letter-spacing: 0.8px;">Display circle projection <input id="guide-toggle-check" type="checkbox" checked> </div>
+`
+);
+
 canvas = document.querySelector("#mycanvas");
 ctx = canvas.getContext("2d");
 
@@ -178,7 +190,7 @@ document
           p2.theta = 0;
           p1.epsilon = ne;
           p2.epsilon = ne;
-          curOrbit = new orbit(350, ne);
+          curOrbit.epsilon = ne;
           eccentricity = ne;
         }
       }
