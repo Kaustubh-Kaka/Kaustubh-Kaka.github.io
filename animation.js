@@ -18,11 +18,13 @@ function roundN(x, n) {
 function drawReference() {
   ctx.strokeStyle = "#fff";
   ctx.lineWidth = 1;
+  ctx.setLineDash([5, 5]);
 
   ctx.beginPath();
   ctx.moveTo(0, origin[1]);
   ctx.lineTo(2 * origin[0], origin[1]);
   ctx.stroke();
+  ctx.setLineDash([]);
 }
 
 function drawText(inputText, distanceFromTop) {
@@ -135,29 +137,23 @@ class orbit {
   constructor(a, epsilon) {
     this.a = a;
     this.epsilon = epsilon;
-    this.pointList = [];
-    for (let i = 0.0; i < 2 * Math.PI; i += 0.05) {
-      let r =
-        (this.a * (1 - this.epsilon ** 2)) / (1 - this.epsilon * Math.cos(i));
-      this.pointList.push([r * Math.cos(i), r * Math.sin(i)]);
-    }
   }
 
   draw() {
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 2;
-    for (let i = 0; i < this.pointList.length; i++) {
-      ctx.beginPath(this.pointList[i][0], this.pointList[i][1]);
-      ctx.moveTo(
-        origin[0] + this.pointList[i][0],
-        origin[1] - this.pointList[i][1]
-      );
-      ctx.lineTo(
-        origin[0] + this.pointList[(i + 1) % this.pointList.length][0],
-        origin[1] - this.pointList[(i + 1) % this.pointList.length][1]
-      );
-      ctx.stroke();
-    }
+    ctx.beginPath();
+
+    ctx.ellipse(
+      origin[0] + this.a * this.epsilon,
+      origin[1],
+      this.a,
+      this.a * Math.pow(1 - this.epsilon ** 2, 0.5),
+      0,
+      0,
+      2 * Math.PI
+    );
+    ctx.stroke();
   }
 }
 
