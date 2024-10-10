@@ -138,7 +138,7 @@ class circularBody {
       ((1 - this.epsilon * Math.cos(this.theta)) / (1 - this.epsilon)) ** 2;
     this.theta += curOmega * prop * this.T;
     drawText(
-      "Ratio of actual and constant omega: " +
+      "Ratio of actual and average omega: " +
         roundN(curOmega / wrongConstantOmega, 3),
       40
     );
