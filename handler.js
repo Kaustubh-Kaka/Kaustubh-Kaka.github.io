@@ -14,6 +14,7 @@ function renderMainContent() {
 
     let disabled = false;
     let sliderEnable = false;
+    let isUpdating = true;
     let eccentricityScale = 0.6;
     let prop = 0.001;
     let eccentricity = 0;
@@ -215,6 +216,15 @@ function renderMainContent() {
     });
 
     document
+      .querySelector("#animation-toggle")
+      .addEventListener("click", function(e) {
+        e.preventDefault();
+        isUpdating = !isUpdating;
+        if (isUpdating) this.innerHTML = "Pause";
+        else this.innerHTML = "Play";
+      });
+
+    document
       .querySelector("#sliding-bar")
       .addEventListener("click", function(e) {
         e.preventDefault();
@@ -240,9 +250,11 @@ function renderMainContent() {
 
       star.draw();
       p1.draw();
-      p1.update();
       p2.draw();
-      p2.updatePhysicallyCorrect();
+      if (isUpdating) {
+        p1.update();
+        p2.updatePhysicallyCorrect();
+      }
       drawText("Eccentricity: " + roundN(eccentricity, 3), 75);
 
       requestAnimationFrame(animate);
