@@ -14,6 +14,7 @@ function renderMainContent() {
 
     let disabled = false;
     let sliderEnable = false;
+    let eccentricityScale = 0.6;
     let prop = 0.001;
     let eccentricity = 0;
     let origin = [canvas.width / 2, canvas.height / 2];
@@ -200,7 +201,8 @@ function renderMainContent() {
       if (sliderEnable) {
         let eslider = document.querySelector("#slider");
         eslider.style.left = clamp(e.x - 20, -10, 190);
-        eccentricity = (0.999 * (parseFloat(eslider.style.left) + 10)) / 200;
+        eccentricity =
+          (eccentricityScale * (parseFloat(eslider.style.left) + 10)) / 200;
         curOrbit.epsilon = eccentricity;
         p1.epsilon = eccentricity;
         p2.epsilon = eccentricity;
@@ -217,7 +219,7 @@ function renderMainContent() {
       .addEventListener("click", function(e) {
         e.preventDefault();
         document.querySelector("#slider").style.left = e.x - 30;
-        eccentricity = (0.999 * (parseFloat(e.x - 30) + 10)) / 200;
+        eccentricity = (eccentricityScale * (parseFloat(e.x - 30) + 10)) / 200;
         curOrbit.epsilon = eccentricity;
         p1.epsilon = eccentricity;
         p2.epsilon = eccentricity;
@@ -266,5 +268,3 @@ for (let i = 0; i < navitem.length; i++) {
     renderMainContent();
   });
 }
-
-//what github(or the lack thereof does to a man)
