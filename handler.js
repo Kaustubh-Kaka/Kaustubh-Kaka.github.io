@@ -1,17 +1,10 @@
-let contentID = "main";
+let contentID = "animation";
 
 function renderMainContent() {
   if (contentID == "animation") {
-    document.querySelector(
-      "#content-area"
-    ).innerHTML = `<canvas id="mycanvas"></canvas>
-    <input
-      id="eccentricity-input"
-      placeholder="Enter new eccentricity value"
-      style=" position:absolute; top:160px; left: 10px; width: 300px; height: 30px;font-size: 20px; border-radius: 5px; "
-    />
-    <div style="position: absolute; top: 195px; left: 10px; color: #fff; font-family: Arial, Helvetica, sans-serif; ">Display circle projection <input id="guide-toggle-check" type="checkbox" checked> </div>
-`;
+    document.querySelector("#content-area").innerHTML = document.querySelector(
+      "#animation-content"
+    ).innerHTML;
 
     canvas = document.querySelector("#mycanvas");
     ctx = canvas.getContext("2d");
@@ -20,8 +13,9 @@ function renderMainContent() {
     canvas.height = window.innerHeight;
 
     let disabled = false;
+    let sliderEnable = false;
     let prop = 0.001;
-    let eccentricity = 0.1;
+    let eccentricity = 0;
     let origin = [canvas.width / 2, canvas.height / 2];
     ctx.strokeStyle = "#fff";
     ctx.fillStyle = "#fff";
@@ -46,6 +40,12 @@ function renderMainContent() {
       ctx.fillStyle = "#fff";
       ctx.font = "25px Arial";
       ctx.fillText(inputText, 10, distanceFromTop);
+    };
+
+    let clamp = function(x, a, b) {
+      if (x < a) return a;
+      else if (x > b) return b;
+      else return x;
     };
 
     class circularBody {
@@ -183,28 +183,44 @@ function renderMainContent() {
     let star = new circularBody(0, 0, 0, 0, 0, 30, "#ff0");
 
     document
-      .querySelector("#eccentricity-input")
-      .addEventListener("keyup", function(e) {
-        e.preventDefault();
-        if (e.key == "Enter") {
-          if (!isNaN(this.value)) {
-            let ne = parseFloat(this.value);
-            if (ne < 1 && ne >= 0) {
-              p1.theta = 0;
-              p2.theta = 0;
-              p1.epsilon = ne;
-              p2.epsilon = ne;
-              curOrbit.epsilon = ne;
-              eccentricity = ne;
-            }
-          }
-        }
-      });
-
-    document
       .querySelector("#guide-toggle-check")
       .addEventListener("click", function(e) {
         disabled = !this.checked;
+      });
+
+    document
+      .querySelector("#slider")
+      .addEventListener("mousedown", function(e) {
+        e.preventDefault();
+        sliderEnable = true;
+      });
+
+    document.querySelector("body").addEventListener("mousemove", function(e) {
+      e.preventDefault();
+      if (sliderEnable) {
+        let eslider = document.querySelector("#slider");
+        eslider.style.left = clamp(e.x - 20, -10, 190);
+        eccentricity = (0.999 * (parseFloat(eslider.style.left) + 10)) / 200;
+        curOrbit.epsilon = eccentricity;
+        p1.epsilon = eccentricity;
+        p2.epsilon = eccentricity;
+      }
+    });
+
+    document.querySelector("body").addEventListener("mouseup", function(e) {
+      e.preventDefault();
+      sliderEnable = false;
+    });
+
+    document
+      .querySelector("#sliding-bar")
+      .addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelector("#slider").style.left = e.x - 30;
+        eccentricity = (0.999 * (parseFloat(e.x - 30) + 10)) / 200;
+        curOrbit.epsilon = eccentricity;
+        p1.epsilon = eccentricity;
+        p2.epsilon = eccentricity;
       });
 
     let animate = function() {
@@ -225,7 +241,7 @@ function renderMainContent() {
       p1.update();
       p2.draw();
       p2.updatePhysicallyCorrect();
-      drawText("Eccentricity: " + eccentricity, 75);
+      drawText("Eccentricity: " + roundN(eccentricity, 3), 75);
 
       requestAnimationFrame(animate);
     };

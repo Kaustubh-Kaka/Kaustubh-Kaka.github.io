@@ -17,6 +17,24 @@
   </head>
   <body>
     <!-- style=" font-family: Roboto Mono, system-ui" nice font for monospace-->
+    <template id="animation-content">
+      <canvas id="mycanvas"></canvas>
+      <div
+        id="sliding-bar"
+        style="background-color: #fff; width: 200px; height: 6px; border-radius: 3px; position: absolute; top: 90px; left: 20px;"
+      >
+        <button
+          id="slider"
+          style="position: absolute; background-color: rgba(180,180,180,0.6); left: -10px;top: -7px; width:20px; height: 20px; border-radius: 10px; border: none;"
+        ></button>
+      </div>
+      <div
+        style="position: absolute; top: 110px; left: 10px; color: #fff; font-family: Arial, Helvetica, sans-serif; "
+      >
+        Display circle projection
+        <input id="guide-toggle-check" type="checkbox" checked />
+      </div>
+    </template>
     <div>
       <div id="topnav">
         <button
@@ -37,7 +55,7 @@
         </button>
       </div>
     </div>
-    <div id="content-area"></div>
+    <div style="position: relative;" id="content-area"></div>
     <script src="./handler.js"></script>
   </body>
 </html>
