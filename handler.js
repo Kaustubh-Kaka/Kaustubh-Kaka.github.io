@@ -266,3 +266,5 @@ for (let i = 0; i < navitem.length; i++) {
     renderMainContent();
   });
 }
+
+//what github(or the lack thereof does to a man)
