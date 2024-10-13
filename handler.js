@@ -179,15 +179,9 @@ function renderMainContent() {
         ctx.stroke();
       }
 
-      update() {
-        let wrongConstantOmega = (2 * Math.PI) / this.T;
-        this.theta += prop * this.T * wrongConstantOmega;
-      }
-
       updatePhysicallyCorrect(internalUpdate = false) {
         if (!internalUpdate) this.updateN += 1;
         this.updateN %= parseInt(1 / prop);
-        let wrongConstantOmega = (2 * Math.PI) / this.T;
         let omegaAtApoapsis =
           2 *
           Math.PI *
@@ -199,10 +193,13 @@ function renderMainContent() {
         let curOmega =
           omegaAtApoapsis *
           ((1 - this.epsilon * Math.cos(this.theta)) / (1 - this.epsilon)) ** 2;
+
         this.theta += curOmega * prop * this.T;
+        while (this.theta > 2 * Math.PI) this.theta -= 2 * Math.PI;
+
         drawText(
-          "Ratio of actual and average omega: " +
-            roundN(curOmega / wrongConstantOmega, 3),
+          "Equation of time: " +
+            roundN(180 * (this.theta / Math.PI - 2 * this.updateN * prop), 3),
           40
         );
       }
