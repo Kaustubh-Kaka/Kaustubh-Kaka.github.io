@@ -17,8 +17,11 @@ function renderMainContent() {
     let isUpdating = true;
     let eccentricityScale = 0.6;
     let prop = 0.001;
-    let eccentricity = 0;
+    let eccentricity = 0.6;
     let origin = [canvas.width / 2, canvas.height / 2];
+    let eotPoints = [];
+    let eotGraphOrigin = [40, 650];
+    let eotGraphScale = [0.06, 90];
     ctx.strokeStyle = "#fff";
     ctx.fillStyle = "#fff";
 
@@ -48,6 +51,24 @@ function renderMainContent() {
       if (x < a) return a;
       else if (x > b) return b;
       else return x;
+    };
+
+    let drawEOTGraph = function() {
+      console.log("working");
+      ctx.beginPath();
+      ctx.strokeStyle = "#fff";
+      ctx.setLineDash([]);
+      for (let i = 0; i < eotPoints.length - 1; i++) {
+        ctx.moveTo(
+          eotGraphOrigin[0] + eotGraphScale[0] * eotPoints[i][0],
+          eotGraphOrigin[1] - eotGraphScale[1] * eotPoints[i][1]
+        );
+        ctx.lineTo(
+          eotGraphOrigin[0] + eotGraphScale[0] * eotPoints[i + 1][0],
+          eotGraphOrigin[1] - eotGraphScale[1] * eotPoints[i + 1][1]
+        );
+      }
+      ctx.stroke();
     };
 
     class orbit {
@@ -182,6 +203,7 @@ function renderMainContent() {
       updatePhysicallyCorrect(internalUpdate = false) {
         if (!internalUpdate) this.updateN += 1;
         this.updateN %= parseInt(1 / prop);
+
         let omegaAtApoapsis =
           2 *
           Math.PI *
@@ -197,17 +219,26 @@ function renderMainContent() {
         this.theta += curOmega * prop * this.T;
         while (this.theta > 2 * Math.PI) this.theta -= 2 * Math.PI;
 
+        let equationOfTime = this.theta - 2 * this.updateN * prop * Math.PI;
+        if (eotPoints.length < parseInt(1 / prop) - 1)
+          eotPoints.push([this.updateN * prop * this.T, equationOfTime]);
+
         drawText(
-          "Equation of time: " +
-            roundN(180 * (this.theta / Math.PI - 2 * this.updateN * prop), 3),
+          "Equation of time: " + roundN((180 * equationOfTime) / Math.PI, 3),
           40
         );
       }
 
       recompute() {
-        this.theta = 0;
-        for (let i = 0; i < this.updateN; i++)
-          this.updatePhysicallyCorrect(true);
+        if (this.updateN > parseInt(1 / prop) / 2) {
+          this.theta = Math.PI;
+          for (let i = 500; i < this.updateN; i++)
+            this.updatePhysicallyCorrect(true);
+        } else {
+          this.theta = 0;
+          for (let i = 0; i < this.updateN; i++)
+            this.updatePhysicallyCorrect(true);
+        }
       }
     }
 
@@ -221,6 +252,9 @@ function renderMainContent() {
         disabled = !this.checked;
       });
 
+    document.querySelector("#slider").style.left =
+      (eccentricity * 200) / eccentricityScale - 10;
+
     document
       .querySelector("#slider")
       .addEventListener("mousedown", function(e) {
@@ -232,7 +266,7 @@ function renderMainContent() {
       e.preventDefault();
       if (sliderEnable) {
         let eslider = document.querySelector("#slider");
-        eslider.style.left = clamp(e.x - 20, -10, 190);
+        eslider.style.left = clamp(e.x - 30, -10, 190);
         eccentricity =
           (eccentricityScale * (parseFloat(eslider.style.left) + 10)) / 200;
         p2.bodyOrbit.epsilon = eccentricity;
@@ -270,6 +304,7 @@ function renderMainContent() {
       //ctx.fillStyle = "rgba(0,0,0,0.1)";
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawReference();
+      drawEOTGraph();
       p2.drawBodyOrbit();
       if (!disabled) {
         p2.drawIdealOrbit();
@@ -304,7 +339,6 @@ for (let i = 0; i < navitem.length; i++) {
   navitem[i].addEventListener("click", function(e) {
     e.preventDefault();
     contentID = navitem[i].dataset.content;
-    console.log(contentID);
     renderMainContent();
   });
 }
