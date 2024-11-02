@@ -41,6 +41,17 @@
         <input id="guide-toggle-check" type="checkbox" checked />
       </div>
     </template>
+    <template id="TRS-content"
+      ><div
+        id="card-wrapper"
+        style="display: grid; grid-template-columns: repeat(5fr 10px); grid-template-rows: repeat(5fr 10px); width: 100%;"
+      >
+        <div style="width: 50px; height: 50px; background-color: #ff0; "></div>
+        <div style="width: 50px; height: 50px; background-color: #ff0;"></div>
+        <div style="width: 50px; height: 50px; background-color: #ff0;"></div>
+        <div style="width: 50px; height: 50px; background-color: #ff0;"></div>
+      </div>
+    </template>
     <div>
       <div id="topnav">
         <button
@@ -50,6 +61,22 @@
           data-content="logo"
         >
           (placeholder)
+        </button>
+        <button
+          style="grid-area: TRS;"
+          class="navitem"
+          id="TRS"
+          data-content="TRS"
+        >
+          TRS
+        </button>
+        <button
+          style="grid-area: blog;"
+          class="navitem"
+          id="blog"
+          data-content="blog"
+        >
+          blog
         </button>
         <button
           style="grid-area: animation;"

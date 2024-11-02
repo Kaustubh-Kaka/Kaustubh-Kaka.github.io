@@ -1,4 +1,4 @@
-let contentID = "animation";
+let contentID = "TRS";
 
 function renderMainContent() {
   if (contentID == "animation") {
@@ -324,10 +324,16 @@ function renderMainContent() {
     };
 
     animate();
-  } else {
+  } else if (contentID == "logo") {
     document.querySelector("#content-area").innerHTML = `
       <h1>Hello I am Kaustubh kaka</h1>
     `;
+  } else if (contentID == "blog") {
+    document.querySelector("#content-area").innerHTML = ``;
+  } else if (contentID == "TRS") {
+    document.querySelector("#content-area").innerHTML = document.querySelector(
+      "#content-area"
+    ).innerHTML = document.querySelector("#TRS-content").innerHTML;
   }
 }
 

@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: repeat(1fr 10px,10);
     grid-template-rows: 1fr;
-    grid-template-areas: "logo empty empty empty empty empty empty empty blog animation";
+    grid-template-areas: "logo empty empty empty empty empty empty TRS blog animation";
 }
 
 .navitem{
@@ -22,4 +22,11 @@
 
 #mycanvas {
     background: #000;
+}
+
+#card-wrapper{
+    display: grid;
+    grid-template-columns: repeat(5fr 10px);
+    grid-template-rows: repeat(5fr 10px);
+    width: 100%;
 }
