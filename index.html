@@ -15,7 +15,7 @@
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
   </head>
-  <body>
+  <body style="font-family: Arial, Helvetica, sans-serif;">
     <!-- style=" font-family: Roboto Mono, system-ui" nice font for monospace-->
     <template id="animation-content">
       <canvas id="mycanvas"></canvas>
@@ -41,11 +41,15 @@
         <input id="guide-toggle-check" type="checkbox" checked />
       </div>
     </template>
-    <template id="TRS-content"
-      ><div id="card-wrapper" style="display: grid; width: 100%;">
-        <div
-          style="width: 150px; height: 250px; background-color: #f00; border-radius: 15px;"
-        ></div>
+    <template id="TRS-content">
+      <div id="card-wrapper">
+        <div class="namecard">
+          <div class="Image-wrapper"></div>
+          <p class="Name">Kaustubh Kaka</p>
+          <p class="Hall">Lal Bahadur Shastri</p>
+          <p class="Department">Mathematics</p>
+          <p class="Role">Member(1st year)</p>
+        </div>
       </div>
     </template>
     <div>
