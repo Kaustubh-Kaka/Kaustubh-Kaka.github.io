@@ -385,10 +385,10 @@ function yearToRole(n) {
   else return "Coordinator";
 }
 
-function cardHTML(obj, hideData = false) {
+function cardHTML(obj, hideData = false, ind) {
   if (yearState[obj.year - 1])
     return `
-        <div class="namecard">
+        <div class="namecard" data-num="${ind}">
           <div class="Image-wrapper"><img src="./trsimages/${
             obj.img_src
           }"></div>
@@ -405,9 +405,9 @@ function renderAll() {
   let s = "";
   s += `<div id="card-wrapper">`;
   for (let i = 0; i < trsData.length; i++) {
-    if (i && trsData[i].year != trsData[i - 1].year && toggleState[i])
+    if (i && trsData[i].year != trsData[i - 1].year)
       s += `</div><div id="card-wrapper">`;
-    s += cardHTML(trsData[i], !toggleState[i]);
+    s += cardHTML(trsData[i], !toggleState[i], i);
   }
   s += `</div>`;
   document.querySelector("#content-area").innerHTML = s;
@@ -746,6 +746,14 @@ function renderMainContent() {
   } else if (contentID == "TRS") {
     // card rendering logic
     renderAll();
+    document.querySelector(".namecard").addEventListener("click", function(e) {
+      e.preventDefault();
+      console.log(e);
+      toggleState[e.currentTarget.dataset.num] = !toggleState[
+        e.currentTarget.dataset.num
+      ];
+      renderAll();
+    });
   }
 }
 
