@@ -376,7 +376,7 @@ let trsData = [
 
 let toggleState = Array(trsData.length).fill(true);
 
-let yearState = [false, true, true, true, true];
+let yearState = [true, false, true, true, true];
 
 function yearToRole(n) {
   if (n == 1) return "Member";
@@ -402,11 +402,15 @@ function cardHTML(obj, hideData = false) {
 }
 
 function renderAll() {
-  for (let i = 0; i < trsData.length; i++)
-    document.querySelector("#card-wrapper").innerHTML += cardHTML(
-      trsData[i],
-      !toggleState[i]
-    );
+  let s = "";
+  s += `<div id="card-wrapper">`;
+  for (let i = 0; i < trsData.length; i++) {
+    if (i && trsData[i].year != trsData[i - 1].year && toggleState[i])
+      s += `</div><div id="card-wrapper">`;
+    s += cardHTML(trsData[i], !toggleState[i]);
+  }
+  s += `</div>`;
+  document.querySelector("#content-area").innerHTML = s;
 }
 
 function renderMainContent() {
