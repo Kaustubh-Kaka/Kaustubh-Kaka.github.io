@@ -376,7 +376,7 @@ let trsData = [
 
 let toggleState = Array(trsData.length).fill(true);
 
-let yearState = [true, false, true, true, true];
+let yearState = [false, false, true, true, true];
 
 function yearToRole(n) {
   if (n == 1) return "Member";
@@ -389,9 +389,9 @@ function cardHTML(obj, hideData = false, ind) {
   if (yearState[obj.year - 1])
     return `
         <div class="namecard" data-num="${ind}">
-          <div class="Image-wrapper"><img src="./trsimages/${
+          <div class="Image-wrapper"><img src="./TRSpics/${
             obj.img_src
-          }"></div>
+          }" style="max-width:180px; max-height:180px; object-fit: contain;"></div>
           <p class="Name">${obj.name}</p>
           <p class="Hall">${obj.hall}</p>
           <p class="Department">${obj.department}</p>

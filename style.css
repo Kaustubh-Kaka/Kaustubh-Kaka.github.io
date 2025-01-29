@@ -48,12 +48,13 @@
 }
 
 .namecard .Image-wrapper {
-    background-color: #f00;
+    background-color: #ccc;
     width: 180px;
     height: 180px;
     border-radius: 90px;
     margin: auto;
     grid-area: Image;
+    overflow: hidden;
 }
 
 .namecard .Name {
