@@ -374,7 +374,7 @@ let trsData = [
   },
 ];
 
-let toggleState = Array(trsData.length).fill(true);
+let toggleState = Array(trsData.length).fill(false);
 
 let yearState = [false, true, true, true, true];
 
@@ -432,7 +432,7 @@ function cardInner(obj, hideData = false, ind) {
 }
 
 function renderAll() {
-  let s = "";
+  let s = `<button style="height: 50px; width: 100px; font-size:18px; background:#ddd; border: none; border-radius: 5px;" id="resbutton">Reset</button>`;
   s += `<div id="card-wrapper">`;
   for (let i = 0; i < trsData.length; i++) {
     if (i && trsData[i].year != trsData[i - 1].year)
@@ -454,6 +454,12 @@ function renderAll() {
       );
     });
   }
+
+  document.querySelector("#resbutton").addEventListener("click", function(e) {
+    e.preventDefault();
+    toggleState = Array(trsData.length).fill(false);
+    renderAll();
+  });
 }
 
 function renderMainContent() {
