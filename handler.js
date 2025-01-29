@@ -410,6 +410,27 @@ function cardHTML(obj, hideData = false, ind) {
   } else return "";
 }
 
+function cardInner(obj, hideData = false, ind) {
+  if (yearState[obj.year - 1]) {
+    if (toggleState[ind])
+      return `
+          <div class="Image-wrapper"><img src="./TRSpics/${
+            obj.img_src
+          }" style="max-width:180px; max-height:180px; object-fit: contain;"></div>
+          <p class="Name">${obj.name}</p>
+          <p class="Hall">${obj.hall}</p>
+          <p class="Department">${obj.department}</p>
+          <p class="Role">${yearToRole(obj.year)}</p>
+      `;
+    else
+      return `
+          <div class="Image-wrapper"><img src="./TRSpics/${
+            obj.img_src
+          }" style="max-width:180px; max-height:180px; object-fit: contain;"></div>
+      `;
+  } else return "";
+}
+
 function renderAll() {
   let s = "";
   s += `<div id="card-wrapper">`;
@@ -424,9 +445,13 @@ function renderAll() {
   for (let i = 0; i < cardList.length; i++) {
     cardList[i].addEventListener("click", function(e) {
       e.preventDefault();
-
-      toggleState[e.currentTarget.getAttribute("data-num")] ^= 1;
-      renderAll();
+      let ind = e.currentTarget.getAttribute("data-num");
+      toggleState[ind] ^= 1;
+      document.querySelectorAll(".namecard")[ind].innerHTML = cardInner(
+        trsData[ind],
+        !toggleState[ind],
+        ind
+      );
     });
   }
 }
@@ -764,14 +789,6 @@ function renderMainContent() {
   } else if (contentID == "TRS") {
     // card rendering logic
     renderAll();
-    document.querySelector(".namecard").addEventListener("click", function(e) {
-      e.preventDefault();
-      console.log(e);
-      toggleState[e.currentTarget.dataset.num] = !toggleState[
-        e.currentTarget.dataset.num
-      ];
-      renderAll();
-    });
   }
 }
 
