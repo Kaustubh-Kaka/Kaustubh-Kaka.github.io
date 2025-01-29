@@ -386,8 +386,9 @@ function yearToRole(n) {
 }
 
 function cardHTML(obj, hideData = false, ind) {
-  if (yearState[obj.year - 1])
-    return `
+  if (yearState[obj.year - 1]) {
+    if (toggleState[ind])
+      return `
         <div class="namecard" data-num="${ind}">
           <div class="Image-wrapper"><img src="./TRSpics/${
             obj.img_src
@@ -398,7 +399,15 @@ function cardHTML(obj, hideData = false, ind) {
           <p class="Role">${yearToRole(obj.year)}</p>
         </div>
       `;
-  else return "";
+    else
+      return `
+        <div class="namecard" data-num="${ind}">
+          <div class="Image-wrapper"><img src="./TRSpics/${
+            obj.img_src
+          }" style="max-width:180px; max-height:180px; object-fit: contain;"></div>
+        </div>
+      `;
+  } else return "";
 }
 
 function renderAll() {
@@ -411,6 +420,15 @@ function renderAll() {
   }
   s += `</div>`;
   document.querySelector("#content-area").innerHTML = s;
+  cardList = document.querySelectorAll(".namecard");
+  for (let i = 0; i < cardList.length; i++) {
+    cardList[i].addEventListener("click", function(e) {
+      e.preventDefault();
+
+      toggleState[e.currentTarget.getAttribute("data-num")] ^= 1;
+      renderAll();
+    });
+  }
 }
 
 function renderMainContent() {
