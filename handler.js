@@ -376,7 +376,7 @@ let trsData = [
 
 let toggleState = Array(trsData.length).fill(true);
 
-let yearState = [false, false, true, true, true];
+let yearState = [false, true, true, true, true];
 
 function yearToRole(n) {
   if (n == 1) return "Member";
@@ -447,7 +447,7 @@ function renderAll() {
       e.preventDefault();
       let ind = e.currentTarget.getAttribute("data-num");
       toggleState[ind] ^= 1;
-      document.querySelectorAll(".namecard")[ind].innerHTML = cardInner(
+      document.querySelectorAll(".namecard")[ind - 22].innerHTML = cardInner(
         trsData[ind],
         !toggleState[ind],
         ind
